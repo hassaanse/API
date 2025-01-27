@@ -58,13 +58,7 @@ exports.getTotalCampaignData = async (req, res) => {
   
       const campaignWatches = await CampaignWatch.findAll();
   
-      // const userIdsSet = new Set(campaignWatches.map(campaignWatch => campaignWatch.userId));
-      // const uniqueUserIds = Array.from(userIdsSet);
-      // const totalUsersRunningCampaign = uniqueUserIds.length;
-  
-      // const compaignIdsSet = new Set(campaignWatches.map(campaignWatch => campaignWatch.campaignId));
-      // const uniqueCampaignIds = Array.from(compaignIdsSet);
-      // const totalCampaignsRunningUsers = uniqueCampaignIds.length;
+      
 
 
       const campaignsWithViews = await Campaign.findAll({

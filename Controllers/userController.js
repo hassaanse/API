@@ -8,6 +8,8 @@ const UserR = require('../Models/UserR')
 
 const nodemailer = require('nodemailer');
 
+const { Op } = require('sequelize'); // Import Sequelize operators
+
 
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
@@ -198,7 +200,11 @@ exports.updateUserById = async (req, res) => {
 exports.postCreateUser = async (req, res) => {
   try {
       // Extract data from the request body
-      const { userName, userEmail, location, Type, password } = req.body;
+      const { userName, userEmail, location, password } = req.body;
+
+      const Type = 'admin';
+
+      console.log(userName + '  ' + userEmail + '  ' + location + '  ' + password);
 
       // Create a new user in the database
       const newUser = await User.create({
@@ -230,11 +236,19 @@ exports.postCreateUser = async (req, res) => {
 exports.postUserLogin = async (req, res) => {
   try {
     // Extract username and password from the request body
-    const { userName, password } = req.body;
+    const { username, password, useremail } = req.body;
 
     // Find the user by username and password in the database
-    const user = await User.findOne({ where: { userName, password, Type: 'admin' } });
-
+    const user = await User.findOne({
+      where: {
+        [Op.or]: [
+          username ? { userName: username } : undefined, // Include userName condition only if userName is defined
+          useremail ? { userEmail: useremail } : undefined, // Include userEmail condition only if userEmail is defined
+        ].filter(Boolean), // Remove null values from the array
+        password: password,
+        Type: 'admin'
+      }
+    });
     // If user not found or password incorrect, return error
     if (!user) {
       return res.status(401).json({ success: false, message: 'Invalid username or password' });

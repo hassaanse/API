@@ -22,16 +22,6 @@ User.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  watchTime:{
-    type:DataTypes.FLOAT,
-    allowNull:true,
-    defaultValue: 0
-  },
-  views:{
-    type:DataTypes.INTEGER,
-    allowNull:true,
-    defaultValue: 0
-  },
   Type:{
     type:DataTypes.STRING,
     allowNull:true

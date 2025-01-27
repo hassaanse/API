@@ -20,7 +20,7 @@ const UserR = require('../Models/UserR');
 
 var admin = require("firebase-admin");
 
-var serviceAccount = require("../../../thekoi-firebase-adminsdk-9le63-c9703aadce.json");
+var serviceAccount = require("../thekoi-firebase-adminsdk-9le63-c9703aadce.json");
 
 const Notification = require('../Models/Notifications');
 
@@ -29,7 +29,7 @@ const Notification = require('../Models/Notifications');
 // });
 
 admin.initializeApp({
-  credential: admin.credential.cert(require('../../../thekoi-firebase-adminsdk-9le63-c9703aadce.json')),
+  credential: admin.credential.cert(require('../thekoi-firebase-adminsdk-9le63-c9703aadce.json')),
 });
 
 

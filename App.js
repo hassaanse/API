@@ -3,10 +3,13 @@ const app = express();
 const multer = require('multer');
 const cors = require('cors');
 const sequelize = require('./config/database');
+
+
 const campaignRouter = require('./Routers/campaignRouter');
 const analyticsRouter = require('./Routers/analyticsRouter');
 const communicationsRouter = require('./Routers/communicationsRouter');
 const userRouter = require('./Routers/userRouter');
+const AdminUser = require('./Routers/UserAdminRouter');
 const path = require('path');
 
 const Campaign = require('./Models/Campaign');
@@ -15,6 +18,7 @@ const bodyParser = require('body-parser');
 // app.use(bodyParser.json());
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
 
 
 
@@ -46,10 +50,12 @@ app.use(cors());
 // Update route to allow multiple file uploads
 app.use('/campaign', upload.array('videos', 10), campaignRouter); // Adjusted for multiple files (maximum 10)
 
+
 // Other routes
 app.use('/analytics', analyticsRouter);
 app.use('/communications', communicationsRouter);
 app.use('/user', userRouter);
+app.use('/admin', AdminUser);
 
 // Database models and relations
 const analyticsModel = require('./Models/Analytics');
@@ -58,6 +64,7 @@ const viewModel = require('./Models/View');
 const userModel = require('./Models/User');
 const communicationModel = require('./Models/Communication');
 const CampaignWatch = require('./Models/CampaignWatch');
+
 
 viewModel.belongsTo(campaignModel);
 viewModel.belongsTo(userModel);
@@ -73,6 +80,9 @@ campaignModel.hasMany(VideoModel, { foreignKey: 'campaignId', onDelete: 'CASCADE
 VideoModel.belongsTo(campaignModel, { foreignKey: 'campaignId' });
 
 const PORT = process.env.PORT || 8000;
+
+
+
 
 // Establish the database connection and start the server
 // {force:true}

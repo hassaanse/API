@@ -3,10 +3,12 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../Controllers/userController');
 
+
+
 router.post('/delete', userController.deleteUser);
 router.put('/update', userController.updateUserById);
 
-router.post('/create', userController.postCreateUser);
+// router.post('/create', userController.postCreateUser);
 
 
 // router.post('/login' , userController.postUserLogin);
@@ -35,4 +37,9 @@ router.post('/verify-reset-code', userController.verifyResetCode);
 
 router.get('/list', userController.getAllUsers)
 
+// Admin user login and registeration 
+
+router.post('/admin-login' , userController.postUserLogin)
+
+router.post('/admin-signup' , userController.postCreateUser)
 module.exports = router;
