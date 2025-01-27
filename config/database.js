@@ -1,7 +1,7 @@
 // config/database.js
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('video', 'root', '12345', {
+const sequelize = new Sequelize('video', 'root', '', {
   host: 'localhost',
   dialect: 'mysql'
 });

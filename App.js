@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     // Generate a unique filename for each uploaded file
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     cb(null, uniqueSuffix + '-' + file.originalname);
   }
 });
